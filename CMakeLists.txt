@@ -1115,6 +1115,9 @@ if(BUILD_TESTING)
 		ENVIRONMENT "KYTY_TEST_COMPARE_LINEAR_USES=1")
 	add_test(NAME upsync2_opcodes COMMAND $<TARGET_FILE:shader_recompiler_compute_tests> --new-opcodes-only)
 	add_test(NAME shader_cfg COMMAND $<TARGET_FILE:shader_cfg_tests>)
+	add_test(NAME pixel_interface COMMAND $<TARGET_FILE:shader_cfg_tests> --pixel-interface-only)
+	add_test(NAME unused_pixel_inputs COMMAND $<TARGET_FILE:shader_cfg_tests> --unused-pixel-inputs-only)
+	add_test(NAME readonly_buffers_codegen COMMAND $<TARGET_FILE:shader_cfg_tests> --readonly-buffers-only)
 	# KYTY_CB_SHADER_MASK_EXPORTS=1 (the preset's value): upstream 21a1346e2's compact export ordinals.
 	add_test(NAME shader_cfg_cb_shader_mask_exports COMMAND $<TARGET_FILE:shader_cfg_tests>)
 	set_tests_properties(shader_cfg_cb_shader_mask_exports PROPERTIES ENVIRONMENT "KYTY_CB_SHADER_MASK_EXPORTS=1")
@@ -1177,6 +1180,8 @@ if(BUILD_TESTING)
 	# KYTY_WAVE32_CLUSTERS: where wave32 programs keep their own 32 lanes of a wider host subgroup
 	# (AMD vertex/mesh/pixel), and the shader and wave-branch cases with the cluster code forced on (the
 	# wave-reduction codegen checks expect native reductions, which clusters replace by the scan).
+	add_test(NAME wave32_clusters_codegen COMMAND $<TARGET_FILE:shader_recompiler_compute_tests> --wave32-clusters-codegen-only)
+	add_test(NAME lds_device_buffer_codegen COMMAND $<TARGET_FILE:shader_recompiler_compute_tests> --lds-device-buffer-codegen-only)
 	add_test(NAME wave32_clusters
 	         COMMAND $<TARGET_FILE:shader_recompiler_compute_tests> --wave32-clusters-only)
 	add_test(NAME wave32_clusters_shader_cases
